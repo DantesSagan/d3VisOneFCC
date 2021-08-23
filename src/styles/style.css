@@ -1,0 +1,46 @@
+#main {
+  font-family: 'Orbitron', sans-serif;
+  background-color: #ffe53b;
+  background-image: linear-gradient(147deg, #ffe53b 0%, #ff2525 74%);
+  border: 5px solid black;
+  border-radius: 35px;
+  color: white;
+}
+#expression {
+  color: orange;
+}
+.button {
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 15px;
+}
+.button:active {
+  transform: scale(0.85);
+  transition: 0.25;
+  boxshadow: '3px 3px 5px black';
+}
+.buttonM {
+  border: 1px solid black;
+  border-radius: 15px;
+}
+.buttonM:active {
+  transform: scale(0.85);
+  transition: 0.25;
+  boxshadow: '3px 3px 5px black';
+}
+.output {
+  font-size: 1.5em;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 10px 0px 10px 0px;
+  margin-bottom: 15px;
+}
+/* .mt {
+  margin-top: 1.5em;
+}
+@media only and (max-width: 320px) {
+  .mt {
+    margin-top: 1.5em;
+     margin-bottom: 12.5em;
+  }
+} */
