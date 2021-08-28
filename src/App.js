@@ -6,21 +6,42 @@ export default function App() {
     'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json'
   );
   const [req] = useState(new XMLHttpRequest());
-  let [data] = useState();
-  let [values] = useState();
+  let data;
+  let values = [];
 
-  let [xScale] = useState();
-
+  let xScale;
   let heightScale;
 
   let xAxisScale;
   let yAxisScale;
 
-  const width = 800;
+  const width = 1000;
   const height = 600;
-  const padding = 60;
+  const padding = 90;
 
   let svg = d3.select('svg');
+
+  const infoText = () => {
+    let textContainer = d3
+      .select('svg')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height);
+
+    textContainer
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -350)
+      .attr('y', 125)
+      .text('Gross Domestic Product');
+
+    textContainer
+      .append('text')
+      .attr('x', width - 530)
+      .attr('y', height - 560)
+      .attr('id', 'title')
+      .text('Usa GDP');
+  };
 
   const drawCanvas = () => {
     svg.attr('width', width);
@@ -96,13 +117,13 @@ export default function App() {
         return height - padding - heightScale(item[1]);
       })
       .on('mouseover', (item) => {
-        tooltip.transition().duration(200).style('visibility', 'visible');
-        tooltip.text(item[0], item[1]);
+        tooltip.transition().style('visibility', 'visible');
+        tooltip.text(item[0] + ' - ' + item[1]);
 
         document.querySelector('#tooltip').setAttribute('data-date', item[0]);
       })
       .on('mouseout', () => {
-        tooltip.transition().duration(200).style('visibility', 'hidden');
+        tooltip.transition().style('visibility', 'hidden');
       });
   };
 
@@ -113,13 +134,15 @@ export default function App() {
       .append('g')
       .call(xAxis)
       .attr('id', 'x-axis')
-      .attr('transform', 'translate(0, ' + (height - padding) + ')');
+      .attr('transform', 'translate(0, ' + (height - padding) + ')')
+      .style('font-size', '18px');
 
     svg
       .append('g')
       .call(yAxis)
       .attr('id', 'y-axis')
-      .attr('transform', 'translate(' + padding + ',  0)');
+      .attr('transform', 'translate(' + padding + ',  0)')
+      .style('font-size', '18px');
     return { xAxis, svg, yAxis };
   };
 
@@ -127,17 +150,20 @@ export default function App() {
   req.onload = () => {
     data = JSON.parse(req.responseText);
     values = data.data;
-    console.log(values);
     drawCanvas();
     generateScales();
     drawBars();
     generateAxis();
+    infoText();
   };
   req.send();
   return (
     <svg>
-      <text id='title' x='360' y='30'>
-        USA GDP
+      <text id='info' x={width - 820} y={height - 20}>
+        More Information:{' '}
+        <a href='http://www.bea.gov/national/pdf/nipaguid.pdf'>
+          http://www.bea.gov/national/pdf/nipaguid.pdf
+        </a>
       </text>
     </svg>
   );
