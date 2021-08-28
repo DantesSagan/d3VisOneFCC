@@ -118,7 +118,7 @@ export default function App() {
       })
       .on('mouseover', (item) => {
         tooltip.transition().style('visibility', 'visible');
-        tooltip.text(item[0] + ' - ' + item[1]);
+        tooltip.text(item[0] + ' years  - ' + item[1] + ' $');
 
         document.querySelector('#tooltip').setAttribute('data-date', item[0]);
       })
