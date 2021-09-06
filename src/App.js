@@ -18,7 +18,6 @@ export default function App() {
   let yAxisScale;
 
   const width = 1000;
-  const barWidth = width / 275;
   const height = 600;
   const padding = 90;
 
@@ -119,18 +118,18 @@ export default function App() {
       .attr('y', (item) => {
         return height - padding - heightScale(item[1]);
       })
-      .on('mouseover', (event, item, i) => {
+      .on('mouseover', (event, item) => {
         const [x, y] = pointer(event);
-        tooltip.transition().style('visibility', 'visible');
+        tooltip.transition().duration(200).style('visibility', 'visible');
         tooltip
-          .text(item[0] + ' years  - ' + item[1] + ' $')
-          .style('left', x + 450 + 'px')
-          .style('top', y + 150 + 'px');
+          .html(item[0] + ' - Y/M/D  <br/> ' + item[1] + ' $')
+          .style('left', x + 460 + 'px')
+          .style('top', y + 130 + 'px');
 
         document.querySelector('#tooltip').setAttribute('data-date', item[0]);
       })
       .on('mouseout', () => {
-        tooltip.transition().style('visibility', 'hidden');
+        tooltip.transition().duration(200).style('visibility', 'hidden');
       });
   };
 
