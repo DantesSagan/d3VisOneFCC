@@ -169,7 +169,7 @@ export default function App() {
         More Information:{' '}
         <a href='http://www.bea.gov/national/pdf/nipaguid.pdf'>
           http://www.bea.gov/national/pdf/nipaguid.pdf
-        </a>
+        </a>{' '}
       </text>
     </svg>
   );
