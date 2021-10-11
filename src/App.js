@@ -87,6 +87,11 @@ export default function App() {
 
     return { xScale, datesArray };
   };
+
+  const validNumber = (num) => {
+    return num.toString().replace(/(?=\d)(?=(\d{3})+(?!\d))/g, ' ');
+  };
+
   const drawBars = () => {
     const tooltip = d3
       .select('body')
@@ -115,6 +120,7 @@ export default function App() {
       .attr('x', (item, i) => {
         return xScale(i);
       })
+      .attr('d', d3.line())
       .attr('y', (item) => {
         return height - padding - heightScale(item[1]);
       })
@@ -122,9 +128,9 @@ export default function App() {
         const [x, y] = pointer(event);
         tooltip.transition().duration(200).style('visibility', 'visible');
         tooltip
-          .html(item[0] + ' - Y/M/D  <br/> ' + item[1] + ' $')
+          .html(item[0] + ' - Y/M/D  <br/> ' + validNumber(item[1]) + ' $')
           .style('left', x + 460 + 'px')
-          .style('top', y + 130 + 'px');
+          .style('top', y + heightScale(item[1]) + 'px');
 
         document.querySelector('#tooltip').setAttribute('data-date', item[0]);
       })
